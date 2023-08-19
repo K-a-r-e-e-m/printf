@@ -39,7 +39,9 @@ int _printf(const char *format, ...)
 				putchar(*format), len++;
 		}
 		else
+		{
 			putchar(*format), len++;/* If char not % print the char */
+		}
 			format++;
 	}
 	va_end(argValue);

@@ -16,6 +16,8 @@ int _printf(const char *format, ...)
 	char *str;
 	char car;
 
+	if (format == NULL)
+		return (0);
 	va_start(argValue, format); /* Start the list */
 	while (format[i])
 	{
@@ -25,8 +27,6 @@ int _printf(const char *format, ...)
 			if (format[i] == 'c') /* Check the %c */
 			{/* Access the next argument of the function by va_arg */
 				car = va_arg(argValue, int);
-				if (car == 0)
-					car = '\0';
 				putchar(car), len++;
 			}
 			else if (format[i] == 's')/* Check the %s */

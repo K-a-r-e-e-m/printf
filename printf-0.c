@@ -29,12 +29,15 @@ int _printf(const char *format, ...)
 			else if (format[i + 1] == 's')/* Check the %s */
 			{
 				str = va_arg(argValue, char *);
+				if (str == NULL)
+				{
+					str = "(null)";
+				}
 				for (j = 0; str[j] != '\0'; j++, len++)
 					putchar(str[j]);
 			}
 			else if (format[i + 1] == '%')/* Check the %% */
 			{
-				car = va_arg(argValue, int);
 				putchar('%'), len++;
 			}
 			i++; /* To skip the char after % and print the next */

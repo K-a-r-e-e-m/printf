@@ -16,8 +16,6 @@ int _printf(const char *format, ...)
 	char *str;
 	char car;
 
-	if (!format)
-		return (-1);
 	va_start(argValue, format); /* Start the list */
 	while (format[i])
 	{

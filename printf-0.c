@@ -16,35 +16,27 @@ int _printf(const char *format, ...)
 	char *str;
 	char car;
 
-	if (format == NULL)
-	{
-		return (0);
-	}
 	va_start(argValue, format); /* Start the list */
-	while (format[i] != '\0')
+	while (format[i] != '\0' && format != NULL)
 	{
-		if (format[i] == '\\' && format[i + 1] == 'c')
-			return (0); /* Check for /c */
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == 'c') /* Check the %c */
+			i++; /* To skip the char after % and print the next */
+			if (format[i] == 'c') /* Check the %c */
 			{/* Access the next argument of the function by va_arg */
 				car = va_arg(argValue, int);
 				putchar(car), len++;
 			}
-			else if (format[i + 1] == 's')/* Check the %s */
+			else if (format[i] == 's')/* Check the %s */
 			{
 				str = va_arg(argValue, char *);
 				if (str == NULL)
-				{
 					str = "(null)";
-				}
 				for (j = 0; str[j] != '\0'; j++, len++)
 					putchar(str[j]);
 			}
-			else if (format[i + 1] == '%')/* Check the %% */
+			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
-			i++; /* To skip the char after % and print the next */
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

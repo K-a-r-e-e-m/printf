@@ -14,7 +14,7 @@ int _printf(const char *format, ...)
 	va_list argValue; /* Arguments passed to list */
 	int i = 0, len = 0, j;
 	char *str;
-	char car;
+	int car;
 
 	if (format == NULL)
 		return (-1);

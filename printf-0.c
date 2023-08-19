@@ -12,24 +12,26 @@
 int _printf(const char *format, ...)
 {
 	va_list argValue; /* Arguments passed to list */
-	int len = 0, j;
+	int i = 0, len = 0, j;
 	char *str;
-	char c;
+	char car;
 
 	if (!format)
 		return (-1);
 	va_start(argValue, format); /* Start the list */
-	while (format[i] != '\0' && format != NULL)
+	while (format[i])
 	{
-		if (*format == '%')
+		if (format[i] == '%')
 		{
-			format++; /* To skip the char after % and print the next */
-			if (*format == 'c') /* Check the %c */
+			i++; /* To skip the char after % and print the next */
+			if (format[i] == 'c') /* Check the %c */
 			{/* Access the next argument of the function by va_arg */
 				car = va_arg(argValue, int);
+				if (car == 0)
+					car = '\0';
 				putchar(car), len++;
 			}
-			else if (*format == 's')/* Check the %s */
+			else if (format[i] == 's')/* Check the %s */
 			{
 				str = va_arg(argValue, char *);
 				if (str == NULL)
@@ -37,14 +39,12 @@ int _printf(const char *format, ...)
 				for (j = 0; str[j] != '\0'; j++, len++)
 					putchar(str[j]);
 			}
-			else if (*format == '%')/* Check the %% */
-				putchar(*format), len++;
+			else if (format[i] == '%')/* Check the %% */
+				putchar('%'), len++;
 		}
 		else
-		{
-			putchar(*format), len++;/* If char not % print the char */
-		}
-			format++;
+			putchar(format[i]), len++; /* If char not % print the char */
+		i++;
 	}
 	va_end(argValue);
 	return (len);

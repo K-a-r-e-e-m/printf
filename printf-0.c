@@ -87,11 +87,8 @@ int _printf(const char *format, ...)
 			}
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
-			else
-			{
-				putchar('%');
-				putchar(format[i]);
-			}
+			else if (format[i] == '\0')
+				return (-1);
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

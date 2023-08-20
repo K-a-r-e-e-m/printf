@@ -41,6 +41,7 @@ int main(void)
     _printf("%c\n",66);
     printf("%c\n",66);
         _printf("%T");
+        printf("%%%%");
     _printf("%c\n",200);
     printf("%c\n",200);
 

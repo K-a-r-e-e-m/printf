@@ -6,4 +6,6 @@
 #include <stdlib.h>
 int _printf(const char *format, ...);
 int print_numbers(int n, int *len);
+int print_string(char *str, int *len);
+
 #endif

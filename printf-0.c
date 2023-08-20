@@ -27,6 +27,27 @@ int print_numbers(int n, int *len)
 }
 
 /**
+ * print_string - print string function.
+ *
+ * @str: The string passed to print it.
+ * @len: The length of number.
+ *
+ * Description: This function prnit numbers.
+ *
+ * Return: The length of printed number.
+ */
+int print_string(char *str, int *len)
+{
+	int j;
+
+	if (str == NULL)
+		str = "(null)";
+	for (j = 0; str[j] != '\0'; j++, (*len)++)
+		putchar(str[j]);
+	return (*len);
+}
+
+/**
  * _printf - printf function.
  *
  * @format: The format is a list of types of arguments passed to the function.
@@ -38,10 +59,11 @@ int print_numbers(int n, int *len)
 int _printf(const char *format, ...)
 {
 	va_list argValue; /* Arguments passed to list */
-	int i = 0, len = 0, j, n, car;
-	char *str;
+	int i = 0, len = 0, n, car;
 
-	if (format == NULL)
+	if (format == NULL || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
 	va_start(argValue, format); /* Start the list */
 	while (format[i])
@@ -55,13 +77,8 @@ int _printf(const char *format, ...)
 				putchar(car), len++;
 			}
 			else if (format[i] == 's')/* Check the %s */
-			{
-				str = va_arg(argValue, char *);
-				if (str == NULL)
-					str = "(null)";
-				for (j = 0; str[j] != '\0'; j++, len++)
-					putchar(str[j]);
-			}
+				print_string(va_arg(argValue, char *), &len);
+
 			else if (format[i] == 'd' || format[i] == 'i')
 			{
 				n = va_arg(argValue, int);

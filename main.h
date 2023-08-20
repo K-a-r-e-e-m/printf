@@ -5,5 +5,5 @@
 #include "string.h"
 #include <stdlib.h>
 int _printf(const char *format, ...);
-void print_numbers(int num);
+int print_numbers(int n, int *len);
 #endif

@@ -1,22 +1,31 @@
 #include "main.h"
+
 /**
-* print_numbers - prints out the numbers
-* @num : the number to be printed
-*/
-void print_numbers(int num)
+ * print_numbers - print number function.
+ *
+ * @n: The number passed to print it.
+ * @len: The length of number.
+ *
+ * Description: This function prnit numbers.
+ *
+ * Return: The length of printed number.
+ */
+int print_numbers(int n, int *len)
 {
-	if (num < 0)
+	if (n < 0)
 	{
-		putchar('-');
-		print_numbers(-1 * num);
+		putchar('-'), (*len)++;
+		n *= -1;
 	}
-	else
+	if (n / 10)
 	{
-		if (num / 10)
-			print_numbers(num / 10);
-		putchar((num % 10) + '0');
+		print_numbers(n / 10, len);
+
 	}
+	putchar(n % 10 + '0'), (*len)++;
+	return (*len);
 }
+
 /**
  * _printf - printf function.
  *
@@ -56,15 +65,10 @@ int _printf(const char *format, ...)
 			else if (format[i] == 'd' || format[i] == 'i')
 			{
 				n = va_arg(argValue, int);
-				print_numbers(n);
+				print_numbers(n, &len);
 			}
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
-			else
-			{
-				putchar('?');
-				len++;
-			}
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

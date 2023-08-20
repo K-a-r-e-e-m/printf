@@ -1,52 +1,4 @@
 #include "main.h"
-
-/**
- * print_numbers - print number function.
- *
- * @n: The number passed to print it.
- * @len: The length of number.
- *
- * Description: This function prnit numbers.
- *
- * Return: The length of printed number.
- */
-int print_numbers(int n, int *len)
-{
-	if (n < 0)
-	{
-		putchar('-'), (*len)++;
-		n *= -1;
-	}
-	if (n / 10)
-	{
-		print_numbers(n / 10, len);
-
-	}
-	putchar(n % 10 + '0'), (*len)++;
-	return (*len);
-}
-
-/**
- * print_string - print string function.
- *
- * @str: The string passed to print it.
- * @len: The length of number.
- *
- * Description: This function prnit numbers.
- *
- * Return: The length of printed number.
- */
-int print_string(char *str, int *len)
-{
-	int j;
-
-	if (str == NULL)
-		str = "(null)";
-	for (j = 0; str[j] != '\0'; j++, (*len)++)
-		putchar(str[j]);
-	return (*len);
-}
-
 /**
  * _printf - printf function.
  *
@@ -58,39 +10,42 @@ int print_string(char *str, int *len)
  */
 int _printf(const char *format, ...)
 {
-	va_list argValue; /* Arguments passed to list */
-	int i = 0, len = 0, n, car;
-
-	if (format == NULL || (format[0] == '%' && !format[1]) || format[i] == '\0')
+	int i = 0, len = strlen(format), j;
+	List sep[] = {
+		{"c", format_char},
+		{"s", format_string},
+		{"d", format_numbers},
+		{"i", format_numbers},
+		{NULL, NULL}
+		};
+		va_list argValue; /* Arguments passed to list */
+	if (format == NULL)
 		return (-1);
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
 	va_start(argValue, format); /* Start the list */
-	while (format[i])
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			i++; /* To skip the char after % and print the next */
-			if (format[i] == 'c') /* Check the %c */
-			{/* Access the next argument of the function by va_arg */
-				car = va_arg(argValue, int);
-				putchar(car), len++;
-			}
-			else if (format[i] == 's')/* Check the %s */
-				print_string(va_arg(argValue, char *), &len);
-
-			else if (format[i] == 'd' || format[i] == 'i')
+			len--;
+			i++;
+			j = 0;
+			while (sep[j].s)
 			{
-				n = va_arg(argValue, int);
-				print_numbers(n, &len);
+				if (format[i] == sep[j].s[0])
+				{
+					len = len + sep[j].f(argValue);
+				}
+				j++;
 			}
-			else if (format[i] == '%')/* Check the %% */
-				putchar('%'), len++;
-			else
-				return (-1);
+			if (format[i] == '%')
+			{
+				putchar('%');
+			}
 		}
 		else
-			putchar(format[i]), len++; /* If char not % print the char */
+			putchar(format[i]);
 		i++;
 	}
 	va_end(argValue);

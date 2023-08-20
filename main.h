@@ -5,7 +5,20 @@
 #include "string.h"
 #include <stdlib.h>
 int _printf(const char *format, ...);
-int print_numbers(int n, int *len);
-int print_string(char *str, int *len);
+int format_char(va_list ap);
+int format_string(va_list ap);
+int rec_num(int num);
+int format_numbers(va_list ap);
+/**
+* struct list - format printing
+*
+* @s : data type format
+* @f : funcrion pointer
+*/
+typedef struct list
+{
 
+	char *s;
+	int (*f)(va_list);
+} List;
 #endif

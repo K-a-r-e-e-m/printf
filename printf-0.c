@@ -74,7 +74,8 @@ int _printf(const char *format, ...)
 			if (format[i] == 'c') /* Check the %c */
 			{/* Access the next argument of the function by va_arg */
 				car = va_arg(argValue, int);
-				putchar(car), len++;
+				if (car >= 0 && car <= CHAR_MAX)
+					putchar(car), len++;
 			}
 			else if (format[i] == 's')/* Check the %s */
 				print_string(va_arg(argValue, char *), &len);

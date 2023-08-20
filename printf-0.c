@@ -60,6 +60,7 @@ int _printf(const char *format, ...)
 {
 	va_list argValue; /* Arguments passed to list */
 	int i = 0, len = 0, n, car;
+	unsigned char c;
 
 	if (format == NULL || (format[0] == '%' && !format[1]))
 		return (-1);
@@ -74,8 +75,9 @@ int _printf(const char *format, ...)
 			if (format[i] == 'c') /* Check the %c */
 			{/* Access the next argument of the function by va_arg */
 				car = va_arg(argValue, int);
-				if (car >= 0 && car <= CHAR_MAX)
-					putchar(car), len++;
+				c = (unsigned char) car;
+					putchar(c);
+					len++;
 			}
 			else if (format[i] == 's')/* Check the %s */
 				print_string(va_arg(argValue, char *), &len);
@@ -87,8 +89,8 @@ int _printf(const char *format, ...)
 			}
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
-			else if (format[i] == '\0')
-				return (-1);
+			else
+				break;
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

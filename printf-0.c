@@ -59,8 +59,9 @@ int print_string(char *str, int *len)
 int _printf(const char *format, ...)
 {
 	va_list argValue; /* Arguments passed to list */
-	int i = 0, len = 0, n, car;
-	unsigned char c;
+	int i = 0, len = 0;
+	char car;
+	char *text;
 
 	if (format == NULL || (format[0] == '%' && !format[1]))
 		return (-1);
@@ -74,23 +75,22 @@ int _printf(const char *format, ...)
 			i++; /* To skip the char after % and print the next */
 			if (format[i] == 'c') /* Check the %c */
 			{/* Access the next argument of the function by va_arg */
-				car = va_arg(argValue, int);
-				c = (unsigned char) car;
-					putchar(c);
-					len++;
+				car = (char) va_arg(argValue, int);
+					putchar(car), len++;
 			}
 			else if (format[i] == 's')/* Check the %s */
-				print_string(va_arg(argValue, char *), &len);
-
-			else if (format[i] == 'd' || format[i] == 'i')
 			{
-				n = va_arg(argValue, int);
-				print_numbers(n, &len);
+				text = va_arg(argValue, char *);
+				len += print_string(text, &len);
 			}
+			else if (format[i] == 'd' || format[i] == 'i')
+				len += print_numbers(va_arg(argValue, int), &len);
 			else if (format[i] == '%')/* Check the %% */
+			{
 				putchar('%'), len++;
+			}
 			else
-				break;
+				return (-1);
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

@@ -40,7 +40,9 @@ int main(void)
     printf("Len:[%d]\n", len2);
     _printf("%c\n",66);
     printf("%c\n",66);
+        _printf("%T");
     _printf("%c\n",200);
     printf("%c\n",200);
+
     return (0);
 }

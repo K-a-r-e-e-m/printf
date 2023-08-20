@@ -61,7 +61,7 @@ int _printf(const char *format, ...)
 	va_list argValue; /* Arguments passed to list */
 	int i = 0, len = 0, n, car;
 
-	if (format == NULL || (format[0] == '%' && !format[1]) || format[0] == '\0')
+	if (format == NULL || (format[0] == '%' && !format[1]))
 		return (-1);
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
@@ -88,7 +88,10 @@ int _printf(const char *format, ...)
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
 			else
-				return (-1);
+			{
+				putchar('%');
+				putchar(format[i]);
+			}
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

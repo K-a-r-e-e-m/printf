@@ -42,7 +42,8 @@ int main(void)
     printf("%c\n",66);
     _printf("String:[%s]\n", "I am a string !");
     printf("String:[%s]\n", "I am a string !");
-    _printf("%yriw");
+    _printf("%tyui");
+    _printf("ahmed%");
 
 
     return (0);

@@ -68,7 +68,9 @@ int _printf(const char *format, ...)
 	va_start(argValue, format); /* Start the list */
 	while (format[i] != '\0')
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && format[i + 1] == '\0')
+			return (-1);
+		else if (format[i] == '%' && format[i + 1] != '\0')
 		{
 			i++; /* To skip the char after % and print the next */
 			if (format[i] == 'c') /* Check the %c */
@@ -87,10 +89,7 @@ int _printf(const char *format, ...)
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
 			else
-			{
-				putchar('%');
-				putchar(format[i]);
-			}
+				putchar('%'), len++;
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

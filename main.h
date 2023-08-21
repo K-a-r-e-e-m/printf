@@ -9,7 +9,7 @@ int _printf(const char *format, ...);
 int format_char(va_list ap);
 int format_string(va_list ap);
 int rec_num(int num);
-int format_numbers(va_list ap);
+int print_numbers(int n, int *len);
 /**
 * struct list - format printing
 *

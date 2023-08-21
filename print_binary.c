@@ -17,7 +17,7 @@ int print_binary(int number, int *length)
     int idx = 0, j;
 
 	if (number == 0) /* Check if the number is zero */
-		putchar('0');
+        putchar('0');
 
 	while (number > 0)
 	{
@@ -30,6 +30,9 @@ int print_binary(int number, int *length)
 	for (j = (idx - 1); j >= 0; j--)
 		putchar(bnry[j] + '0'), (*length)++;
 	/* (+ '0') --> to convert number to charachter */
+
+    if (idx != 0)
+        (*length)--;
 
     return (*length);
 }

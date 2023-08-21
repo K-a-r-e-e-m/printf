@@ -42,9 +42,9 @@ int main(void)
     printf("%c\n",66);
     _printf("String:[%s]\n", "I am a string !");
     printf("String:[%s]\n", "I am a string !");
-    _printf("%tyui");
-    _printf("ahmed%");
 
-
+    len = _printf("%m");
+    printf("%d",len);
+    _printf("hello");
     return (0);
 }

@@ -61,9 +61,8 @@ int _printf(const char *format, ...)
 	va_list argValue; /* Arguments passed to list */
 	int i = 0, len = 0, n, car;
 
-	if (format == NULL || (format[0] == '%' && !format[1]))
-		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
+	if (format == NULL || (format[0] == '%' && !format[1]) ||
+	 (format[0] == '%' && format[1] == ' ' && !format[2]))
 		return (-1);
 	va_start(argValue, format); /* Start the list */
 	while (format[i] != '\0')
@@ -82,14 +81,14 @@ int _printf(const char *format, ...)
 				print_string(va_arg(argValue, char *), &len);
 
 			else if (format[i] == 'd'  || format[i] == 'i')
-			{
-				n = va_arg(argValue, int);
-				print_numbers(n, &len);
-			}
+				n = va_arg(argValue, int),	print_numbers(n, &len);
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
 			else
+			{
 				putchar('%'), len++;
+				putchar(format[i]), len++;
+			}
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

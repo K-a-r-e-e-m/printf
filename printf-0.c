@@ -43,7 +43,7 @@ int _printf(const char *format, ...)
 		return (-1); /* Check if the given format fails return negative number */
 	va_start(argValue, format); /* Start the list */
 	while (format[i] != '\0')
-	{
+	{	
 		if (format[i] == '%')
 		{
 			i++; /* To skip the char after % and print the next */
@@ -55,6 +55,8 @@ int _printf(const char *format, ...)
 				print_numbers(va_arg(argValue, int), &len);
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
+            else if (format[i] == 'b')
+                print_binary(va_arg(argValue, int), &len);
 			else/* If the given char after % unkown sprecifier */
 				putchar('%'), putchar(format[i]), len += 2;
 		}

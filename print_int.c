@@ -11,15 +11,26 @@
  */
 int print_numbers(int n, int *len)
 {
+	int i, l;
+	char digits[12];
+
 	if (n < 0)
 	{
 		putchar('-'), (*len)++;
 		n *= -1;
 	}
-	if (n / 10)
+	i = 0;
+	while (n > 0)
 	{
-		print_numbers(n / 10, len);
+		digits[i] = '0' + (n % 10);
+		i++;
+		(*len)++;
+		n = n / 10;
 	}
-	putchar(n % 10 + '0'), (*len)++;
+	for (l = (i - 1); l >= 0; l--)
+	{
+		putchar(digits[l]);
+		(*len)++;
+	}
 	return (*len);
 }

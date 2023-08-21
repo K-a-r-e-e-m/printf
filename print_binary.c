@@ -11,13 +11,16 @@
  *
  * Return: The length of printed number.
  */
-int print_binary(int number, int *length)
+int print_binary(unsigned int number, int *length)
 {
 	int bnry[32]; /* The max number of bit that int number have */
 	int idx = 0, j;
 
 	if (number == 0) /* Check if the number is zero */
 		putchar('0'), (*length)++;
+
+	if (number > INT_MAX)
+		return (-1);
 
 	while (number != 0)
 	{

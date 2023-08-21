@@ -10,7 +10,7 @@ int format_char(va_list ap);
 int format_string(va_list ap);
 int rec_num(int num);
 int print_numbers(int n, int *len);
-int print_binary(int number, int *length);
+int print_binary(unsigned int number, int *length);
 
 /**
 * struct list - format printing

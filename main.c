@@ -47,7 +47,7 @@ int main(void)
     len = _printf("%m");
     printf("%d",len);
     len = _printf("hello\n");
-   len =  _printf("%b", 15);
+   len =  _printf("%b", 2147483648);
     printf("%d", len);
 
     return (0);

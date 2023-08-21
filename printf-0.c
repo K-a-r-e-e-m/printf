@@ -66,7 +66,7 @@ int _printf(const char *format, ...)
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
 	va_start(argValue, format); /* Start the list */
-	while (format[i])
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
@@ -74,21 +74,23 @@ int _printf(const char *format, ...)
 			if (format[i] == 'c') /* Check the %c */
 			{/* Access the next argument of the function by va_arg */
 				car = va_arg(argValue, int);
-				if (car >= 0 && car <= CHAR_MAX)
-					putchar(car), len++;
+				putchar(car), len++;
 			}
 			else if (format[i] == 's')/* Check the %s */
 				print_string(va_arg(argValue, char *), &len);
 
-			else if (format[i] == 'd' || format[i] == 'i')
+			else if (format[i] == 'd'  || format[i] == 'i')
 			{
 				n = va_arg(argValue, int);
 				print_numbers(n, &len);
 			}
 			else if (format[i] == '%')/* Check the %% */
 				putchar('%'), len++;
-			else if (format[i] == '\0')
-				return (-1);
+			else
+			{
+				putchar('%');
+				putchar(format[i]);
+			}
 		}
 		else
 			putchar(format[i]), len++; /* If char not % print the char */

@@ -12,7 +12,7 @@
 int print_numbers(int n, int *len)
 {
 	int i, l;
-	char digits[12];
+	char digits[32];
 
 	if (n < 0)
 	{

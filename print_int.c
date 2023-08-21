@@ -30,7 +30,6 @@ int print_numbers(int n, int *len)
 	for (l = (i - 1); l >= 0; l--)
 	{
 		putchar(digits[l]);
-		(*len)++;
 	}
 	return (*len);
 }

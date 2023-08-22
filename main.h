@@ -6,22 +6,10 @@
 #include "string.h"
 #include <stdlib.h>
 int _printf(const char *format, ...);
-int format_char(va_list ap);
-int format_string(va_list ap);
-int rec_num(int num);
 int print_numbers(int n, int *len);
 int print_binary(unsigned int number, int *length);
-
-/**
-* struct list - format printing
-*
-* @s : data type format
-* @f : funcrion pointer
-*/
-typedef struct list
-{
-
-	char *s;
-	int (*f)(va_list);
-} List;
+int print_unsign(unsigned int number, int *length);
+int print_octal(unsigned int number, int *length);
+int print_hexaSml(unsigned int number, int *length);
+int print_hexaCap(unsigned int number, int *length);
 #endif

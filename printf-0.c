@@ -23,7 +23,7 @@ int print_string(char *str, int *len)
 }
 
 /**
- * _printf - printf function.
+ * _printf - Printf function.
  *
  * @format: The format is a list of types of arguments passed to the function.
  *
@@ -43,20 +43,28 @@ int _printf(const char *format, ...)
 		return (-1); /* Check if the given format fails return negative number */
 	va_start(argValue, format); /* Start the list */
 	while (format[i] != '\0')
-	{	
+	{
 		if (format[i] == '%')
 		{
 			i++; /* To skip the char after % and print the next */
-			if (format[i] == 'c') /* Check the %c */
+			if (format[i] == 'c') /* Check %c */
 				putchar(va_arg(argValue, int)), len++;
-			else if (format[i] == 's')/* Check the %s */
+			else if (format[i] == 's')/* Check %s */
 				print_string(va_arg(argValue, char *), &len);
-			else if (format[i] == 'd'  || format[i] == 'i')/* Check the %d, %i */
+			else if (format[i] == 'd'  || format[i] == 'i')/* Check %d, %i */
 				print_numbers(va_arg(argValue, int), &len);
-			else if (format[i] == '%')/* Check the %% */
+			else if (format[i] == '%')/* Check %% */
 				putchar('%'), len++;
-            else if (format[i] == 'b')
-                print_binary(va_arg(argValue, int), &len);
+			else if (format[i] == 'b') /* Check %b */
+				print_binary(va_arg(argValue, int), &len);
+			else if (format[i] == 'u') /* Check %u */
+				print_unsign(va_arg(argValue, int), &len);
+			else if (format[i] == 'o') /* Check %o */
+				print_octal(va_arg(argValue, int), &len);
+			else if (format[i] == 'X') /* Check %X */
+				print_hexaCap(va_arg(argValue, int), &len);
+			else if (format[i] == 'x') /* Check %x */
+				print_hexaSml(va_arg(argValue, int), &len);
 			else/* If the given char after % unkown sprecifier */
 				putchar('%'), putchar(format[i]), len += 2;
 		}
